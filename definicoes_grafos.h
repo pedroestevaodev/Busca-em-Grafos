@@ -1,16 +1,18 @@
+// Guardas de inclusão para evitar múltiplas inclusões do cabeçalho
 #ifndef DEFINICOES_GRAFOS_H
 #define DEFINICOES_GRAFOS_H
 
-#include <string>
-#include <vector>
-#include <map>
-#include <utility>
+#include <string>  // Inclusão para poder usar strings
+#include <vector>  // Inclusão para poder usar vetores
+#include <map>     // Inclusão para poder usar mapas
+#include <utility> // Inclusão para poder usar pares de valores
 
-using namespace std;
+// Declarações externas das listas de adjacência
+// Lista de adjacência para o grafo G1 (não direcionado, não ponderado)
+extern std::map<std::string, std::vector<std::string>> lista_adj_g1;
+// Lista de adjacência para o grafo G2 (direcionado)
+extern std::map<std::string, std::vector<std::string>> lista_adj_g2;
+// Lista de adjacência para o grafo G3 (não direcionado, ponderado)
+extern std::map<std::string, std::vector<std::pair<std::string, int>>> lista_adj_g3;
 
-// Declaracoes externas das listas de adjacencia.
-extern map<string, std::vector<string>> lista_adj_g1;
-extern map<string, vector<string>> lista_adj_g2;
-extern map<string, vector<pair<string, int>>> lista_adj_g3;
-
-#endif
+#endif // Fim da guarda de inclusão

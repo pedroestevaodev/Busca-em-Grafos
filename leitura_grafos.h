@@ -1,17 +1,21 @@
+// Guardas de inclusão para evitar múltiplas inclusões do cabeçalho
 #ifndef LEITURA_GRAFOS_H
-#define LEITURA_GRAFOS_H
+#define LEITURA_GRAFOS_H  
 
-#include <string>
+#include <string>  // Inclusão para poder usar strings
+#include <vector>  // Inclusão para poder usar vetores
+#include <map>     // Inclusão para poder usar mapas
+#include <utility> // Inclusão para poder usar pares de valores
 
-using namespace std;
+// Declarações externas das listas de adjacência
+// Lista de adjacência para o grafo G1 (não direcionado, não ponderado)
+extern std::map<std::string, std::vector<std::string>> lista_adj_g1;  
+// Lista de adjacência para o grafo G2 (direcionado)
+extern std::map<std::string, std::vector<std::string>> lista_adj_g2;  
+// Lista de adjacência para o grafo G3 (não direcionado, ponderado)
+extern std::map<std::string, std::vector<std::pair<std::string, int>>> lista_adj_g3;  
 
-///  Lê o grafo G1 (não direcionado e não ponderado) de um arquivo
-bool ler_grafo_g1(const string& nome_arquivo);
+// Declaração do método para ler os grafos a partir de arquivos
+bool ler_grafo(const std::string& nome_arquivo);
 
-/// Lê o grafo G2 (direcionado) de um arquivo
-bool ler_grafo_g2(const string& nome_arquivo);
-
-/// Lê o grafo G3 (não direcionado e ponderado) de um arquivo
-bool ler_grafo_g3(const string& nome_arquivo);
-
-#endif
+#endif // Fim da guarda de inclusão
