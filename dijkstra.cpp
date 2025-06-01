@@ -1,3 +1,8 @@
+// GRUPO 19:
+// PEDRO AUGUSTO DE OLIVEIRA SOUZA - 2174638
+// PEDRO ESTEVÃO PAULISTA DE MELLO - 2173562
+// SARAH BEIRIGO – 2173107
+
 #include "dijkstra.h"           // Inclusão do cabeçalho de Dijkstra
 #include "definicoes_grafos.h"  // Inclusão do cabeçalho de definições de grafos
 #include <iostream>             // Inclusão para std::cout, std::cerr, std::endl

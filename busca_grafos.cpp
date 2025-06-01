@@ -1,3 +1,8 @@
+// GRUPO 19:
+// PEDRO AUGUSTO DE OLIVEIRA SOUZA - 2174638
+// PEDRO ESTEVÃO PAULISTA DE MELLO - 2173562
+// SARAH BEIRIGO – 2173107
+
 #include "busca_grafos.h"       // Inclusão do cabeçalho de busca em grafos
 #include "definicoes_grafos.h"  // Inclusão do cabeçalho de definições de grafos
 #include <iostream>             // Inclusão para std::cout, std::cerr, std::endl
@@ -27,6 +32,8 @@ void bfs_g1(const std::string& inicio) {
     std::set<std::string> nos_visitados;
     // A fila nos permite explorar os nós em ordem de descoberta, seguindo a lógica da BFS
     std::queue<std::string> fila_nos;
+    // Inicializamos um vetor para armazenar a ordem de visitação dos nós
+    std::vector<std::string> ordem_visitacao;
 
     // Adicionamos o nó inicial à fila e ao conjunto de nós visitados
     fila_nos.push(inicio);
@@ -37,70 +44,43 @@ void bfs_g1(const std::string& inicio) {
     // Exibimos uma mensagem informando o início da BFS e o nó inicial
     // A ordem de visitação dos nós será exibida na tela
     std::cout << "Iniciando Busca em Largura (BFS) a partir de '" << inicio << "':" << std::endl;
-    // Exibimos a ordem de visitação dos nós na tela
-    std::cout << "Nos visitados na ordem: ";
-    // Variável para controlar a formatação da saída, para não imprimir " -> " antes do primeiro nó
-    // A variável primeiro_no_seq é usada para controlar a formatação da saída, evitando imprimir " -> " antes do primeiro nó
-    bool primeiro_no_seq = true;
-
+    
     // Enquanto houver nós na fila, continuamos a explorar o grafo
-    while (!fila_nos.empty()) {
-        // Pegamos o nó atual da frente da fila
+    while (!fila_nos.empty()) { // Continuamos enquanto houver nós na fila para visitar.
+        // Pegamos o nó atual da frente da fila.
         std::string no_atual = fila_nos.front();
-        // Removemos o nó atual da fila para processá-lo
+        // Exibimos o nó atual que está sendo processado.
         fila_nos.pop();
 
-        // Adicionamos o nó atual à lista de nós visitados
-        if (!primeiro_no_seq) {
-            // Se não for o primeiro nó, imprimimos " -> " antes do nó atual
-            std::cout << " -> ";
-        }
-        // Imprimimos o nó atual na saída padrão
-        std::cout << no_atual;
-        // Atualizamos a variável primeiro_no_seq para false, pois já processamos o primeiro nó
-        primeiro_no_seq = false;
+        // Adicionamos o nó atual à lista de ordem de visitação.
+        // Isso nos permite manter o registro da ordem em que os nós foram visitados.
+        ordem_visitacao.push_back(no_atual);
 
-        // Exibimos uma mensagem informando que estamos processando o nó atual
-        std::cout << std::endl << "  Processando '" << no_atual << "': ";
-        // Variável para controlar se algum vizinho foi descoberto
-        // A variável primeiro_vizinho_descoberto é usada para controlar a formatação da saída, evitando imprimir " -> " antes do primeiro vizinho
-        bool primeiro_vizinho_descoberto = true;
-        
-        // Verificamos se o nó atual tem vizinhos na lista de adjacência do grafo G1
+        // Verificamos se o nó atual realmente existe no mapa de adjacência antes de tentar ver seus vizinhos.
         if (lista_adj_g1.count(no_atual)) {
-            // Iteramos sobre cada vizinho do nó atual
+            // Percorremos todos os vizinhos do nó atual.
+            // Isso nos permite explorar todos os nós conectados ao nó atual.
             for (const auto& vizinho : lista_adj_g1[no_atual]) {
-                // Verificamos se o vizinho já foi visitado
-                // Utilizamos a precedência de visitação de acordo com a ordem lexicográfica. [cite: 6]
-                if (nos_visitados.find(vizinho) == nos_visitados.end()) { // Se não visitado
-                    // Se o vizinho não foi visitado, adicionamos ele à fila e ao conjunto de nós visitados
-                    nos_visitados.insert(vizinho);
-                    // Adicionamos o vizinho à fila para processamento futuro
-                    fila_nos.push(vizinho);
-                    // Exibimos o vizinho descoberto na saída padrão
-                    if (!primeiro_vizinho_descoberto) {
-                        std::cout << ", ";
-                    }
-                    // Imprimimos o vizinho descoberto
-                    std::cout << no_atual << " -> " << vizinho;
-                    // Atualizamos a variável primeiro_vizinho_descoberto para false, pois já descobrimos um vizinho
-                    primeiro_vizinho_descoberto = false;
+                // Usamos a ordem alfabética (lexicográfica) para decidir a precedência de visitação.
+                if (nos_visitados.find(vizinho) == nos_visitados.end()) { // Se o vizinho ainda não foi visitado...
+                    nos_visitados.insert(vizinho); // ...marca o vizinho como visitado.
+                    fila_nos.push(vizinho);        // ...coloca o vizinho na fila para ser visitado depois.
                 }
             }
         }
+    }
 
-        // Se nenhum novo vizinho foi descoberto, informamos ao usuário
-        // A variável primeiro_vizinho_descoberto controla se algum vizinho foi descoberto
-        if (primeiro_vizinho_descoberto) {
-            // Se nenhum vizinho foi descoberto, imprimimos uma mensagem informando isso
-            std::cout << "Nenhum novo vizinho descoberto." << std::endl;
-        } else {
-            // Se vizinhos foram descobertos, finalizamos a linha de saída com um ponto final
-            std::cout << std::endl;
-        }
+    // Exibe a ordem final de visitação, similar à DFS.
+    std::cout << "Ordem de visitacao (BFS) a partir de '" << inicio << "': ";
+    // Percorremos a lista de nós visitados e imprimimos a ordem de visitação.
+    // Usamos um loop para percorrer cada nó na ordem de visitação.
+    for (size_t i = 0; i < ordem_visitacao.size(); ++i) {
+        // Imprimimos o nó atual na ordem de visitação.
+        // Usamos um operador ternário para formatar a saída, adicionando uma seta entre os nós.
+        std::cout << ordem_visitacao[i] << (i == ordem_visitacao.size() - 1 ? "" : " -> ");
     }
     // Após processar todos os nós, exibimos uma mensagem informando que a BFS foi concluída
-    // A BFS foi concluída, então imprimimos uma mensagem de conclusão
+    // A mensagem de conclusão indica que a busca em largura foi finalizada com sucesso.
     std::cout << std::endl << "BFS concluida." << std::endl;
 }
 

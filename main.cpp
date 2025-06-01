@@ -1,3 +1,8 @@
+// GRUPO 19:
+// PEDRO AUGUSTO DE OLIVEIRA SOUZA - 2174638
+// PEDRO ESTEVÃO PAULISTA DE MELLO - 2173562
+// SARAH BEIRIGO – 2173107
+
 #include "leitura_grafos.h"   // Inclusão do cabeçalho de leitura de grafos
 #include "busca_grafos.h"     // Inclusão do cabeçalho de busca em grafos
 #include "dijkstra.h"         // Inclusão do cabeçalho de Dijkstra
